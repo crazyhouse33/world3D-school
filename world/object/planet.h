@@ -6,7 +6,8 @@ class Planet{
 		ChainedTriangle* mesh;
 		/*basic data used for random generation*/
 		int humidity;
-		int temperatureAtEcuador
+		int temperatureAtEcuador;
+		double* center; //(x, y, z)
 		/*for now we use fixed temp at ecuador, if we got enought
 		time we will generate smalls suns systems where temperature
 		is more realisticlely regulated 
@@ -19,4 +20,6 @@ class Planet{
 
 	public:
 		double temperatureAtVertex(double* Vertex);
+		double*getCenter();
+		void moveCenter(double* dxyz);
 }
