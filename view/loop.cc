@@ -25,12 +25,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 //TODO for now main contain view shit until we succed to have a functionnal camera, then we gotta clean up and just initialise constantes and primordial things (camera, drawer...) 
 int main(void)
 {	
-
-	double* initialPosition= (double*) malloc(3*sizeof(double));
+	int height=480;
+	int width=640;
+	float ratio = (float) width/height;
+	float* initialPosition= (float*) malloc(3*sizeof(float));
 	initialPosition[0]=1.0;
 	initialPosition[1]=1.0;
 	initialPosition[2]=1.0;
-	Camera* camera=new Camera(initialPosition);
+	Camera* camera=new Camera(ratio, initialPosition, initialPosition);
 	
 	//setting up conf, we dont want to use deprecated stuff	
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -46,7 +48,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 	//creation of the window
-	GLFWwindow* window=glfwCreateWindow(640, 480, "3DWorld", NULL, NULL);
+	GLFWwindow* window=glfwCreateWindow(width, height, "3DWorld", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
