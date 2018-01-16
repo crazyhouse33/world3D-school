@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS=
-LDFLAGS= -lGL -lglfw -lrt -lm -ldl
+LDFLAGS= -lGL -lglfw -lrt -lm -ldl -Iincludes -Ilibs -g -Wall -Wextra -pedantic -O2
 
 
 EXEC=3D_world
@@ -11,7 +11,7 @@ $(EXEC):
 
 clean:
 	@rm -rf *.o
-	@rm $(EXEC)
+	@rm -f $(EXEC)
 	
 
 

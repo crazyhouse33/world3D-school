@@ -1,6 +1,7 @@
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "camera.h"
 
 //hello word programm took on glfw site
 
@@ -23,7 +24,13 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 //TODO for now main contain view shit until we succed to have a functionnal camera, then we gotta clean up and just initialise constantes and primordial things (camera, drawer...) 
 int main(void)
-{
+{	
+
+	double* initialPosition= (double*) malloc(3*sizeof(double));
+	initialPosition[0]=1.0;
+	initialPosition[1]=1.0;
+	initialPosition[2]=1.0;
+	Camera* camera=new Camera(initialPosition);
 	
 	//setting up conf, we dont want to use deprecated stuff	
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -49,13 +56,15 @@ int main(void)
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetCursorPosCallback(window, cursor_pos_callback);
 
-	//locking cursor (fps mode)
+	//locking cursor (fps mode) 
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	
 
 
 	//focus on this window
 	glfwMakeContextCurrent(window);
-	
+	//setting cursor to 0,0 (need to be after focusing window)
+	glfwSetCursorPos(window,0.0, 0.0);
 	
 	while (!glfwWindowShouldClose(window))
 	{
