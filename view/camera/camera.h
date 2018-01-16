@@ -22,8 +22,11 @@ class Camera{
 		mat4 projection;//settings of our camera
 		//reste à gérer le model. rien compris à ça, j pense pas que ce soit important
 	public: 
+		static Camera* camera;
 		Camera(float ratio, float* position, float* direction);
 		void move(float* delta);//translating the camera by dx dy dz
 		mat4 getViewMatrix(float* direction);//return the matrix for openGl, and save new direction
 	};
+
+
 #endif
