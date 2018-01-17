@@ -13,12 +13,14 @@ int main(void)
 {	
 	int height=480;
 	int width=640;
+	float moveSpeed=1.0f;
+	float rotationSpeed=1.0f;
 	float ratio = (float) width/height;
 	float* initialPosition= (float*) malloc(3*sizeof(float));
-	initialPosition[0]=1.0;
-	initialPosition[1]=1.0;
-	initialPosition[2]=1.0;
-	Camera::camera=new Camera(ratio, initialPosition, initialPosition);
+	initialPosition[0]=1.0f;
+	initialPosition[1]=1.0f;
+	initialPosition[2]=1.0f;
+	Camera::camera=new Camera(ratio, initialPosition, initialPosition, moveSpeed, rotationSpeed);
 	
 	//setting up conf, we dont want to use deprecated stuff	
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
