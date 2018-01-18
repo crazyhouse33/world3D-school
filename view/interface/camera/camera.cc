@@ -21,10 +21,11 @@ Camera::Camera(float ratio, float* position, float* direction, float moveSpeed, 
 	debug();
 }
 
-mat4 Camera::getViewMatrix(float* dir){
+mat4 Camera::getViewMatrix(vec3 dir){//TODO check si on peut ecrire dir=dire
 	direction[0]=dir[0];
 	direction[1]=dir[1];
 	direction[2]=dir[2];
+	debug();
 	//return lookAt( position, position+direction , vec3(0,1,0));
 }
 
@@ -43,29 +44,34 @@ void Camera::accelerateBackward(){
 	acceleration -= moveSpeed * direction;
 	debug();
 }
-void Camera::accelerateRight(){	
+void Camera::accelerateRight(){// may be bugged if looking at up, also normed? TODO remplacer tous les constructeur int en float	
 	vec3 crossProduct= cross( vec3(0,1,0), direction);
 	printf("%f %f %f \n",crossProduct[0], crossProduct[1], crossProduct[2]);
-	acceleration += crossProduct;
+	acceleration += moveSpeed * crossProduct;
 	debug();	
 	
 }
 
-void Camera::accelerateLeft(){
+void Camera::accelerateLeft(){//idem
 	vec3 crossProduct= cross( vec3(0,1,0), direction);
-	acceleration -= crossProduct;
+	acceleration -= moveSpeed * crossProduct;
 
 	debug();
 
 }
 
+float Camera::getRotationSpeed(){
+	return rotationSpeed;
+}
 void Camera::debug(){
-	printf("position : %f, %f, %f\n\
+	printf("\nposition : %f, %f, %f\n\
 			acceleration : %f, %f, %f\n\
-			direction : %f, %f, %f\n",\
+			direction : %f, %f, %f\n\
+			norme direction : %f",\
 			position[0],position[1],position[2],\
 			acceleration[0], acceleration[1],acceleration[2],\
-			direction[0],direction[1],direction[2]);
+			direction[0],direction[1],direction[2],\
+			length(direction));
 }
 
 

@@ -4,7 +4,13 @@
 #include <math.h>
 
 #include "camera.h"
-#include "callbacks.cc"
+#include "inputHandler.cc"
+
+void error_callback(int error, const char* description)
+	{
+		fprintf(stderr, "Error: %s\n", description);
+	}
+
 
 //hello word programm took on glfw site
 
@@ -16,14 +22,14 @@ int main(void)
 	int height=480;
 	int width=640;
 	float moveSpeed=1.0f;
-	float rotationSpeed=1.0f;
+	float rotationSpeed=0.0005f;
 	float ratio = (float) width/height;
 	float* initialPosition= (float*) malloc(3*sizeof(float));
 	initialPosition[0]=0.0f;
 	initialPosition[1]=0.0f;
 	initialPosition[2]=1.0f;
 	Camera::camera=new Camera(ratio, initialPosition, initialPosition, moveSpeed, rotationSpeed);
-	
+
 	//setting up conf, we dont want to use deprecated stuff	
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
@@ -31,6 +37,9 @@ int main(void)
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//setting error callBack ( obviously before doing anything else)
+	
+	
+
 	glfwSetErrorCallback(error_callback);
 
 	//beginning use
@@ -46,39 +55,27 @@ int main(void)
 	}
 	//linking window whit our callbacks
 	glfwSetKeyCallback(window, key_callback);
-	
+
 
 	//locking cursor (fps mode) 
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	
+
 
 
 	//focus on this window
 	glfwMakeContextCurrent(window);
 	//setting cursor to 0,0 (need to be after focusing window)
 	glfwSetCursorPos(window,0.0, 0.0);
-	
+
 	while (!glfwWindowShouldClose(window))
 	{
-		//TODO mettre dans une class renderer qui gère ça 
-
-		double xMouse, yMouse;
-		glfwGetCursorPos(window, $xMouse, $yMouse);	
-
-		float* direction=(float*) malloc(sizeof(float)x*3);
-		float sinX=sin(xMouse);
-		float sinSquaredX=sinX*sinX;
-
-		direction[0]= sinSquaredX;
-		direction[2]=1.0f -sinSquaredX;
-
-		direction[3]=
-
+		//update block (to put in Mover class (move all object that havent 0 as acceleration and check collision) 
+		Camera::camera->move();
+		//
 		
-
-
-		Camera::camera->getViewMatrix();
-
+	
+		//render block(to put in renderer class
+		Camera::camera->getViewMatrix(mouseToDirection(Camera::camera, window));	
 
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -101,7 +98,7 @@ int main(void)
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-	
+
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	exit(EXIT_SUCCESS);

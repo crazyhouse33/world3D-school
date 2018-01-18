@@ -22,7 +22,7 @@ class Camera{
 		mat4 cachedViewMatrix;//to not recalcule the matrix if we did'not move
 		mat4 projection;//settings of our camera
 		//reste à gérer le model. rien compris à ça, j pense pas que ce soit important
-		void move();//translating camera accordingly to acceleration
+
 		float moveSpeed;
 		float rotationSpeed;
 	public: 
@@ -32,10 +32,11 @@ class Camera{
 		void accelerateForward();
 		void accelerateBackward();
 		void accelerateRight();	
-		void resetAcceleration();
+		void move();//translating camera accordingly to acceleration
+		float getRotationSpeed();	
 		void debug();
-		mat4 getViewMatrix(float* direction);//return the matrix for openGl, and save new direction
-	};
+		mat4 getViewMatrix(vec3 direction);//return the matrix for openGl, and save new direction
+};
 
 
 #endif
