@@ -1,9 +1,11 @@
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "camera.h"
+#include <math.h>
 
+#include "camera.h"
 #include "callbacks.cc"
+
 //hello word programm took on glfw site
 
 Camera* Camera::camera;//defining static variable (strange c++ behaviour)
@@ -17,8 +19,8 @@ int main(void)
 	float rotationSpeed=1.0f;
 	float ratio = (float) width/height;
 	float* initialPosition= (float*) malloc(3*sizeof(float));
-	initialPosition[0]=1.0f;
-	initialPosition[1]=1.0f;
+	initialPosition[0]=0.0f;
+	initialPosition[1]=0.0f;
 	initialPosition[2]=1.0f;
 	Camera::camera=new Camera(ratio, initialPosition, initialPosition, moveSpeed, rotationSpeed);
 	
@@ -44,7 +46,7 @@ int main(void)
 	}
 	//linking window whit our callbacks
 	glfwSetKeyCallback(window, key_callback);
-	glfwSetCursorPosCallback(window, cursor_pos_callback);
+	
 
 	//locking cursor (fps mode) 
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -58,10 +60,26 @@ int main(void)
 	
 	while (!glfwWindowShouldClose(window))
 	{
-		float ratio;
-		int width, height;
-		glfwGetFramebufferSize(window, &width, &height);
-		ratio = width / (float) height;
+		//TODO mettre dans une class renderer qui gère ça 
+
+		double xMouse, yMouse;
+		glfwGetCursorPos(window, $xMouse, $yMouse);	
+
+		float* direction=(float*) malloc(sizeof(float)x*3);
+		float sinX=sin(xMouse);
+		float sinSquaredX=sinX*sinX;
+
+		direction[0]= sinSquaredX;
+		direction[2]=1.0f -sinSquaredX;
+
+		direction[3]=
+
+		
+
+
+		Camera::camera->getViewMatrix();
+
+
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
