@@ -8,4 +8,5 @@ possible qu'il fasse refaire toute les signatures, transformer tous les double* 
 -5 optimiser (culling, multiThread/passer tout dans le gpu, gestion d'événnement passive)
 -6 reformater a fond le code (include dans l'ordre alphabétique et companie)
 
+foutre des pointeurs sur les vec3 quand il le faut
 -optionnel stabilisateur de fps

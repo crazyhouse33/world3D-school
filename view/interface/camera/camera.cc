@@ -22,9 +22,7 @@ Camera::Camera(float ratio, float* position, float* direction, float moveSpeed, 
 }
 
 mat4 Camera::getViewMatrix(vec3 dir){//TODO check si on peut ecrire dir=dire
-	direction[0]=dir[0];
-	direction[1]=dir[1];
-	direction[2]=dir[2];
+	direction=dir;
 	debug();
 	//return lookAt( position, position+direction , vec3(0,1,0));
 }
