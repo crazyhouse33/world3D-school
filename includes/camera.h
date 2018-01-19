@@ -1,1 +1,1 @@
-../view/interface/camera/camera.h
+../view/camera/camera.h

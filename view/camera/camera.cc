@@ -3,6 +3,7 @@
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/ext.hpp>
+#include "debug.h"
 //TODO configuration file/class for all hard coded things
 
 Camera::Camera(float ratio, float* position, float* direction, float moveSpeed, float rotationSpeed){
@@ -21,7 +22,7 @@ Camera::Camera(float ratio, float* position, float* direction, float moveSpeed, 
 	debug();
 }
 
-mat4 Camera::getViewMatrix(vec3 dir){//TODO check si on peut ecrire dir=dire
+mat4 Camera::getViewMatrix(vec3 dir){
 	direction=dir;
 	debug();
 	//return lookAt( position, position+direction , vec3(0,1,0));
@@ -61,6 +62,8 @@ void Camera::accelerateLeft(){//idem
 float Camera::getRotationSpeed(){
 	return rotationSpeed;
 }
+
+#ifdef DEBUG
 void Camera::debug(){
 	printf("\nposition : %f, %f, %f\n\
 			acceleration : %f, %f, %f\n\
@@ -71,5 +74,6 @@ void Camera::debug(){
 			direction[0],direction[1],direction[2],\
 			length(direction));
 }
+#endif
 
 

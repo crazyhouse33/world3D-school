@@ -34,7 +34,9 @@ class Camera{
 		void accelerateRight();	
 		void move();//translating camera accordingly to acceleration
 		float getRotationSpeed();	
+#ifdef DEBUG
 		void debug();
+#endif
 		mat4 getViewMatrix(vec3 direction);//return the matrix for openGl, and save new direction
 };
 
