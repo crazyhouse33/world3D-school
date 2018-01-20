@@ -1,7 +1,7 @@
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
+
 
 #include "camera.h"
 #include "inputHandler.cc"
@@ -31,18 +31,12 @@ int main(void)
 	Camera::camera=new Camera(ratio, initialPosition, initialPosition, moveSpeed, rotationSpeed);
 
 	//setting up conf, we dont want to use deprecated stuff	
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//setting error callBack ( obviously before doing anything else)
-	
-	
-
 	glfwSetErrorCallback(error_callback);
 
-	//beginning use
 	if (!glfwInit()){
 		exit(EXIT_FAILURE);
 	}

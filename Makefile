@@ -7,7 +7,7 @@ all: $(EXEC)
 
 $(EXEC): clean 
 	@find . -name "*.h" -exec ln -s .{} -t includes/ \; 2> /dev/null #putting all headers in /includes
-	@$(CC) $(CFLAGS) $(LDFLAGS) view/interface/loop.cc view/camera/camera.cc -o $(EXEC) 
+	@$(CC) $(CFLAGS) $(LDFLAGS) main.cc view/camera/camera.cc view/interface/interface.cc -o $(EXEC) 
 
 
 .PHONY: clean debug

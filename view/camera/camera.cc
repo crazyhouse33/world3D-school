@@ -44,8 +44,7 @@ void Camera::accelerateBackward(){
 	debug();
 }
 void Camera::accelerateRight(){// may be bugged if looking at up, also normed? TODO remplacer tous les constructeur int en float	
-	vec3 crossProduct= cross( vec3(0,1,0), direction);
-	printf("%f %f %f \n",crossProduct[0], crossProduct[1], crossProduct[2]);
+	vec3 crossProduct= cross( vec3(0,1,0), direction);	
 	acceleration += moveSpeed * crossProduct;
 	debug();	
 	

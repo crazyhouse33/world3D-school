@@ -26,7 +26,6 @@ class Camera{
 		float moveSpeed;
 		float rotationSpeed;
 	public: 
-		static Camera* camera;
 		Camera(float ratio, float* position, float* direction, float moveSpeed, float rotationSpeed);
 		void accelerateLeft();
 		void accelerateForward();
