@@ -5,24 +5,10 @@
 
 #include "camera.h"
 #include "interface.h"
+#include "inputmanager.h"
 
-//TODO foutre dans une classe input handler? le blem c'est que le call back est chiant car il fait perdre la modularité
 
-#define GLM_FORCE_RADIANS
-#include <glm/gtx/rotate_vector.hpp> 
-vec3 mouseToDirection(Camera* camera, Interface* interface){	
-	double xMouseD, yMouseD;
-	interface->getMousePosition(&xMouseD, &yMouseD);	
-	float xMouse= (float) xMouseD;
-	float yMouse=(float) yMouseD;
-	float speed = camera->getRotationSpeed(); 
-	vec3 initialDir=vec3(0.0f,0.0f,1.0f);//todo put up and right global 
-	vec3 up= vec3(0.0f,1.0f,0.0f);
-	vec3 right =vec3(1.0f,0.0f,0.0f);
-	initialDir=rotate(initialDir, xMouse*speed, up); 
-	initialDir=rotate(initialDir, yMouse*speed, right);
-	return initialDir;
-}
+
 
 int main(void)
 {	
@@ -36,7 +22,8 @@ int main(void)
 	initialPosition[2]=1.0f;
 	Interface* interface= new Interface(width, height);	
 	Camera* camera=new Camera(interface->getRatio(), initialPosition, initialPosition, moveSpeed, rotationSpeed);
-
+	InputManager* inputManager=new InputManager(interface, camera);
+	Interface::inputManager=inputManager;
 	while (interface->windowShouldClose())
 	{
 		//update block (to put in Mover class (move all object that havent 0 as acceleration and check collision) 
@@ -45,7 +32,7 @@ int main(void)
 
 
 		//render block(to put in renderer class
-		camera->getViewMatrix(mouseToDirection(camera, interface));	
+		//camera->getViewMatrix(mouseToDirection(camera, interface));	
 
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);

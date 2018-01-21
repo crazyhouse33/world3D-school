@@ -1,17 +1,79 @@
 #include <GLFW/glfw3.h>
 #include "interface.h"
-#include "inputhandler.cc"//key callback
+#include "inputmanager.h"//lib-independent callbacks
 #include <stdlib.h>//error control
 #include <stdio.h>
 
 /**
  * This class contain all thing related to glfw
  * */
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (action ==GLFW_REPEAT){
+		return;
+	}
+
+#define SWITCHCASE(string) if (action==GLFW_PRESS){\
+	Interface::inputManager##string##Press();\
+	}\
+	else{\
+		Interface::inputManager##string##Release;\
+	}
+	switch(key){
+		case GLFW_KEY_LEFT: 
+			//SWITCHCASE(->left)
+			if (action==GLFW_PRESS){
+				Interface::inputManager->leftPress();
+			}
+			else{
+				Interface::inputManager->rightPress();
+			}
+			break;
+
+		case GLFW_KEY_UP:
+			//SWITCHCASE(->up)
+			if (action==GLFW_PRESS){
+				Interface::inputManager->leftPress();
+			}
+			else{
+				Interface::inputManager->rightPress();
+			}
+			break;
+
+		case GLFW_KEY_RIGHT:
+			//SWITCHCASE(->right)	
+			if (action==GLFW_PRESS){
+				Interface::inputManager->leftPress();
+			}
+			else{
+				Interface::inputManager->rightPress();
+			}
+			break;
+
+		case GLFW_KEY_DOWN:
+			//SWITCHCASE(->down)
+			if (action==GLFW_PRESS){
+				Interface::inputManager->leftPress();
+			}
+			else{
+				Interface::inputManager->rightPress();
+			}
+			break;
+
+		case GLFW_KEY_ESCAPE:
+			Interface::inputManager->escapePressed();		
+			break;
+
+	}
+
+#undef SWITCHCASE
+}
+
 
 void error_callback(int error, const char* description)
-	{
-		fprintf(stderr, "Error: %s\n", description);
-	}
+{
+	fprintf(stderr, "Error: %s\n", description);
+}
 
 
 Interface::Interface(int width, int height){
@@ -71,7 +133,13 @@ void Interface::threatEvents(){
 	glfwPollEvents();
 }
 
-void Interface::quit(){
-glfwDestroyWindow(window);
-glfwTerminate();
+void Interface::closeWindow(){
+	glfwSetWindowShouldClose(window, GL_TRUE);
 }
+void Interface::quit(){
+	glfwDestroyWindow(window);
+	glfwTerminate();
+}
+
+
+
