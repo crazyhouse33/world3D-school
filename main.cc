@@ -22,8 +22,9 @@ int main(void)
 	initialPosition[2]=1.0f;
 	Interface* interface= new Interface(width, height);	
 	Camera* camera=new Camera(interface->getRatio(), initialPosition, initialPosition, moveSpeed, rotationSpeed);
-	InputManager* inputManager=new InputManager(interface, camera);
-	Interface::inputManager=inputManager;
+
+	Interface::inputManager=new InputManager(interface, camera);
+
 	while (interface->windowShouldClose())
 	{
 		//update block (to put in Mover class (move all object that havent 0 as acceleration and check collision) 

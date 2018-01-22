@@ -7,6 +7,7 @@
 /**
  * This class contain all thing related to glfw
  * */
+extern InputManager* Interface::inputManager; //needed to compile
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (action ==GLFW_REPEAT){
@@ -78,7 +79,8 @@ void error_callback(int error, const char* description)
 
 Interface::Interface(int width, int height){
 	ratio=(float) width/height;
-	//setting up conf, we dont want to use deprecated stuff	
+
+//setting up conf, we dont want to use deprecated stuff	
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
@@ -89,7 +91,8 @@ Interface::Interface(int width, int height){
 		exit(EXIT_FAILURE);
 	}
 	//creation of the window
-	GLFWwindow* window=glfwCreateWindow(width, height, "3DWorld", NULL, NULL);
+	
+	window=glfwCreateWindow(width, height, "3DWorld", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -109,7 +112,10 @@ Interface::Interface(int width, int height){
 	//setting cursor to 0,0 (need to be after focusing window)
 	glfwSetCursorPos(window,0.0, 0.0);
 
+
 }
+
+	
 
 void Interface::getMousePosition(double* receiveX, double* receiveY){
 	glfwGetCursorPos(window, receiveX, receiveY);	
@@ -118,7 +124,7 @@ void Interface::getMousePosition(double* receiveX, double* receiveY){
 }
 
 bool Interface::windowShouldClose(){
-	return glfwWindowShouldClose(window); 
+	return glfwWindowShouldClose(window)==GLFW_TRUE; 
 }
 
 float Interface::getRatio(){
