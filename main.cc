@@ -25,7 +25,7 @@ int main(void)
 
 	Interface::inputManager=new InputManager(interface, camera);
 
-	while (interface->windowShouldClose())
+	while (!interface->windowShouldClose())
 	{
 		//update block (to put in Mover class (move all object that havent 0 as acceleration and check collision) 
 		camera->move();

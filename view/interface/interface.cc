@@ -83,6 +83,7 @@ Interface::Interface(int width, int height){
 //setting up conf, we dont want to use deprecated stuff	
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	//printf("%s\n", glfwGetVersionString());
 
 	//setting error callBack ( obviously before doing anything else)
 	glfwSetErrorCallback(error_callback);
