@@ -14,56 +14,33 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		return;
 	}
 
+#define SYMPOINT ->
 #define SWITCHCASE(string) if (action==GLFW_PRESS){\
-	Interface::inputManager##string##Press();\
+	Interface::inputManager->string##Press();\
 	}\
 	else{\
-		Interface::inputManager##string##Release;\
+		Interface::inputManager->string##Release();\
 	}
 	switch(key){
 		case GLFW_KEY_LEFT: 
-			//SWITCHCASE(->left)
-			if (action==GLFW_PRESS){
-				Interface::inputManager->leftPress();
-			}
-			else{
-				Interface::inputManager->rightPress();
-			}
+			SWITCHCASE(left)
 			break;
 
 		case GLFW_KEY_UP:
-			//SWITCHCASE(->up)
-			if (action==GLFW_PRESS){
-				Interface::inputManager->leftPress();
-			}
-			else{
-				Interface::inputManager->rightPress();
-			}
+			SWITCHCASE(up)
 			break;
 
 		case GLFW_KEY_RIGHT:
-			//SWITCHCASE(->right)	
-			if (action==GLFW_PRESS){
-				Interface::inputManager->leftPress();
-			}
-			else{
-				Interface::inputManager->rightPress();
-			}
+			SWITCHCASE(right)	
 			break;
 
 		case GLFW_KEY_DOWN:
-			//SWITCHCASE(->down)
-			if (action==GLFW_PRESS){
-				Interface::inputManager->leftPress();
-			}
-			else{
-				Interface::inputManager->rightPress();
-			}
+			SWITCHCASE(down)
 			break;
 
 		case GLFW_KEY_ESCAPE:
-			Interface::inputManager->escapePressed();		
-			break;
+		Interface::inputManager->escapePressed();		
+		break;
 
 	}
 
@@ -80,7 +57,7 @@ void error_callback(int error, const char* description)
 Interface::Interface(int width, int height){
 	ratio=(float) width/height;
 
-//setting up conf, we dont want to use deprecated stuff	
+	//setting up conf, we dont want to use deprecated stuff	
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	//printf("%s\n", glfwGetVersionString());
@@ -92,7 +69,7 @@ Interface::Interface(int width, int height){
 		exit(EXIT_FAILURE);
 	}
 	//creation of the window
-	
+
 	window=glfwCreateWindow(width, height, "3DWorld", NULL, NULL);
 	if (!window)
 	{
@@ -116,7 +93,7 @@ Interface::Interface(int width, int height){
 
 }
 
-	
+
 
 void Interface::getMousePosition(double* receiveX, double* receiveY){
 	glfwGetCursorPos(window, receiveX, receiveY);	

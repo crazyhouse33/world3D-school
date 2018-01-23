@@ -39,18 +39,18 @@ void InputManager::rightRelease(){
 	camera->accelerateLeft();
 }
 
-vec3 InputManager::mouseToDirection(){	
+mat4 InputManager::orientCamera(){	
 	double xMouseD, yMouseD;
 	interface->getMousePosition(&xMouseD, &yMouseD);	
 	float xMouse= (float) xMouseD;
 	float yMouse=(float) yMouseD;
 	float speed = camera->getRotationSpeed(); 
-	vec3 initialDir=vec3(0.0f,0.0f,1.0f);//TODO put up and right global 
+	vec3 initialDir=vec3(0.0f,0.0f,1.0f);//TODO put up and right global, use more pointer 
 	vec3 up= vec3(0.0f,1.0f,0.0f);
 	vec3 right =vec3(1.0f,0.0f,0.0f);
 	initialDir=rotate(initialDir, xMouse*speed, up); 
 	initialDir=rotate(initialDir, yMouse*speed, right);
-	return initialDir;
+	return camera->orient(initialDir);
 
 }
 

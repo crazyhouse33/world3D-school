@@ -23,7 +23,10 @@ class InputManager{
 
 		void escapePressed();
 
-		glm::vec3 mouseToDirection();
+		/**
+		 * orient camera and return view Matrix associated
+		 * */
+		glm::mat4 orientCamera();
 
 	private:	
 		Camera* camera;

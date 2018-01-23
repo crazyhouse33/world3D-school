@@ -22,7 +22,7 @@ Camera::Camera(float ratio, float* position, float* direction, float moveSpeed, 
 	debug();
 }
 
-mat4 Camera::getViewMatrix(vec3 dir){
+mat4 Camera::orient(vec3 dir){
 	direction=dir;
 	debug();
 	//return lookAt( position, position+direction , vec3(0,1,0));

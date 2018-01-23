@@ -33,7 +33,7 @@ int main(void)
 
 
 		//render block(to put in renderer class
-		//camera->getViewMatrix(mouseToDirection(camera, interface));	
+		Interface::inputManager->orientCamera();	
 
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);

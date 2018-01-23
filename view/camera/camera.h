@@ -36,7 +36,8 @@ class Camera{
 #ifdef DEBUG
 		void debug();
 #endif
-		mat4 getViewMatrix(vec3 direction);//return the matrix for openGl, and save new direction
+		//TODO foutre le fait que ça retourne une matrix pour opengl dans une future class openg gl qui prend une direction et un poi en parametre
+		mat4 orient(vec3 direction);//return the matrix for openGl, and save new direction
 };
 
 
