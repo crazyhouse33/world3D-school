@@ -6,12 +6,13 @@
 #include "camera.h"
 #include "interface.h"
 #include "inputmanager.h"
-
+#include "Shader.h"
 
 
 
 int main(void)
 {	
+	//initialisation des objets
 	int height=480;
 	int width=640;
 	float moveSpeed=1.0f;
@@ -19,11 +20,16 @@ int main(void)
 	float* initialPosition= (float*) malloc(3*sizeof(float));
 	initialPosition[0]=0.0f;
 	initialPosition[1]=0.0f;
-	initialPosition[2]=1.0f;
+	initialPosition[2]=-1.0f;
 	Interface* interface= new Interface(width, height);	
-	Camera* camera=new Camera(interface->getRatio(), initialPosition, initialPosition, moveSpeed, rotationSpeed);
-
+	Camera* camera=new Camera(interface->getRatio(), initialPosition, moveSpeed, rotationSpeed);	
 	Interface::inputManager=new InputManager(interface, camera);
+
+	//shaders (a passer dans la classe drawer)
+	
+	Shader shaderBasique("view/drawer/Shaders/basique2D.vert", "view/drawer/Shaders/basique2D.frag");
+	shaderBasique.charger();
+
 
 	while (!interface->windowShouldClose())
 	{

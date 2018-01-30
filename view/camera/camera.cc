@@ -6,7 +6,7 @@
 #include "debug.h"
 //TODO configuration file/class for all hard coded things
 
-Camera::Camera(float ratio, float* position, float* direction, float moveSpeed, float rotationSpeed){
+Camera::Camera(float ratio, float* position, float moveSpeed, float rotationSpeed){
 	this->acceleration=vec3();
 	this->position=vec3(position[0],position[1],position[2]);
 	this->direction=vec3(direction[0],direction[1],direction[2]);

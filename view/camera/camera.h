@@ -26,7 +26,7 @@ class Camera{
 		float moveSpeed;
 		float rotationSpeed;
 	public: 
-		Camera(float ratio, float* position, float* direction, float moveSpeed, float rotationSpeed);
+		Camera(float ratio, float* position, float moveSpeed, float rotationSpeed);
 		void accelerateLeft();
 		void accelerateForward();
 		void accelerateBackward();
