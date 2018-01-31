@@ -25,7 +25,7 @@ Camera::Camera(float ratio, float* position, float moveSpeed, float rotationSpee
 mat4 Camera::orient(vec3 dir){
 	direction=dir;
 	debug();
-	//return lookAt( position, position+direction , vec3(0,1,0));
+	return lookAt( position, position+direction , vec3(0,1,0));
 }
 
 void Camera::move(){

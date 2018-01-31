@@ -8,6 +8,9 @@
 #include "inputmanager.h"
 #include "Shader.h"
 
+//to move
+#define GLM_FORCE_RADIANS
+#include <glm/gtc/type_ptr.hpp> //cross plateform cast matrix to gpu
 
 
 int main(void)
@@ -27,20 +30,31 @@ int main(void)
 
 	//shaders (a passer dans la classe drawer)
 	
-	Shader shaderBasique("view/drawer/Shaders/basique2D.vert", "view/drawer/Shaders/basique2D.frag");
-	shaderBasique.charger();
+	Shader shader("view/drawer/Shaders/geometry.vert", "view/drawer/Shaders/texture.frag");
+	shader.charger();
 
 
 	while (!interface->windowShouldClose())
 	{
-		//update block (to put in Mover class (move all object that havent 0 as acceleration and check collision) 
+
+				//update block (to put in Mover class (move all object that havent 0 as acceleration and check collision) 
 		camera->move();
 
 
 
 		//render block(to put in renderer class
-		Interface::inputManager->orientCamera();	
+		glm::mat4 cameraMatrix = Interface::inputManager->orientCamera();	
 
+		//shader shit 
+		
+		/*feeding vertex shader whit matrix camera matrix */	
+		GLuint cameraMatrixVramLocation = glGetUniformLocation(shader.getProgramID(), "cameraMatrix");//TODO dans la classe drawer optimiser ça (pointeur vrm fixe)
+		glUniformMatrix4fv(cameraMatrixVramLocation , 1, GL_FALSE, glm::value_ptr(cameraMatrix));
+		glUseProgram(shader.getProgramID());
+
+		//envoi de data. a foutre en VBO
+
+				
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
