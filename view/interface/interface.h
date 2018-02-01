@@ -12,7 +12,9 @@ class Interface{
 		 * */
 		Interface(int width, int height);
 		/*retrieve total deplacement of the mous since the creation of 
-		 * the window
+		 * the window 
+		 * X: + = right
+		 * Y: + = up
 		 * */
 		void getMousePosition(double* receiveX, double* receiveY);
 		

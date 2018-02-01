@@ -13,7 +13,7 @@ Camera::Camera(float ratio, float* position, float moveSpeed, float rotationSpee
 	this->moveSpeed=moveSpeed;
 	this->rotationSpeed=rotationSpeed;
 	projection=perspective(
-			30.0f,//FOV (zoom en degrée)
+			0.6f,//FOV (~ 34 degrees )
 			ratio,//depending size of windows 
 			0.1f,// near limit
 			10000.0f//far limit
