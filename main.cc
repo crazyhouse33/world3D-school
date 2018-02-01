@@ -18,14 +18,18 @@ int main(void)
 	//initialisation des objets
 	int height=480;
 	int width=640;
-	float moveSpeed=0.25f;
-	float rotationSpeed=0.0005f;	
+	float moveSpeed=0.05f;
+	float rotationSpeed=0.00005f;	
 	float* initialPosition= (float*) malloc(3*sizeof(float));
 	initialPosition[0]=0.0f;
 	initialPosition[1]=0.0f;
 	initialPosition[2]=-1.0f;
+	float fov=0.6f;
+	float nearLimit=0.1f;
+	float farLimit=10000.0f;
+
 	Interface* interface= new Interface(width, height);	
-	Camera* camera=new Camera(interface->getRatio(), initialPosition, moveSpeed, rotationSpeed);	
+	Camera* camera=new Camera(interface->getRatio(), initialPosition, moveSpeed, rotationSpeed, fov, nearLimit, farLimit);	
 	Interface::inputManager=new InputManager(interface, camera);
 
 	//shaders (a passer dans la classe drawer)
@@ -36,9 +40,12 @@ int main(void)
 
 	while (!interface->windowShouldClose())
 	{
+#ifdef DEBUG
+		printf("%s\n", "=======================================================");
+#endif
 
-				//update block (to put in Mover class (move all object that havent 0 as acceleration and check collision) 
-		camera->move();
+		//update block (to put in Mover class (move all object that havent 0 as acceleration and check collision) 
+		camera->update();
 
 
 
@@ -82,6 +89,7 @@ int main(void)
 		//TODO we should try to turn this busy wait into a lazy one see http://www.glfw.org/docs/latest/input_guide.html glfwWaitEvent()
 		interface->refreshBuffer();
 		interface->threatEvents();
+
 
 	}
 	interface->quit();

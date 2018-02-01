@@ -19,27 +19,36 @@ class Camera{
 		vec3 acceleration;
 		vec3 position;
 		vec3 direction;//normed vector direction	
-		mat4 projection;//settings of our camera
-		//reste à gérer le model. rien compris à ça, j pense pas que ce soit important
 
+				//cheap optim
+		vec3 cachedCrossProduct;
+		
+		//settings (public for syntaxic convenience, inputhandler need to access 3 of this value) 
+		float fov;
+		float nearLimit;
+		float farLimit;
 		float moveSpeed;
 		float rotationSpeed;
 	public: 
-		Camera(float ratio, float* position, float moveSpeed, float rotationSpeed);
+		Camera(float ratio, float* position, float moveSpeed, float rotationSpeed, float fov, float nearLimit, float farLimit);
 		void accelerateLeft();
 		void accelerateForward();
 		void accelerateBackward();
 		void accelerateRight();	
+		void stop();
+		void resetCrossProduct();
+		float getRotationSpeed();
 		void move();//translating camera accordingly to acceleration
-		float getRotationSpeed();	
+		
+		
+		
+		void orient(vec3 direction);//save new direction
+
 
 #ifdef DEBUG
 		void debug();
 #endif
-		//TODO foutre le fait que ça retourne une matrix pour opengl dans une future class openg gl qui prend une camera en parametre
-		mat4 orient(vec3 direction);//return the matrix for openGl, and save new direction
-		mat4 getProjection();
-};
+		};
 
 
 #endif

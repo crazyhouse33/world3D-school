@@ -97,7 +97,7 @@ Interface::Interface(int width, int height){
 
 void Interface::getMousePosition(double* receiveX, double* receiveY){
 	glfwGetCursorPos(window, receiveX, receiveY);	
-	*receiveY=-(*receiveY);
+	*receiveY=-(*receiveY); //glfw inverse the y axis
 
 
 }
