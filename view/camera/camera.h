@@ -23,7 +23,7 @@ class Camera{
 				//cheap optim
 		vec3 cachedCrossProduct;
 		
-		//settings (public for syntaxic convenience, inputhandler need to access 3 of this value) 
+		//settings 
 		float fov;
 		float nearLimit;
 		float farLimit;
@@ -38,11 +38,11 @@ class Camera{
 		void stop();
 		void resetCrossProduct();
 		float getRotationSpeed();
-		void move();//translating camera accordingly to acceleration
-		
-		
-		
-		void orient(vec3 direction);//save new direction
+		void move();//translate camera accordingly to acceleration	
+		void orient(vec3 direction);//orient camera
+
+		mat4 getLookAtMatrix();
+		mat4 getProjectionMatrix();
 
 
 #ifdef DEBUG

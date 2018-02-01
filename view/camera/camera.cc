@@ -59,6 +59,14 @@ void Camera::resetCrossProduct(){
 float Camera::getRotationSpeed(){
 	return rotationSpeed;
 }
+
+mat4 Camera::getLookAtMatrix(){
+	return lookAt();
+}
+
+mat4 Camera::getProjectionMatrix(float ratio){
+	return perspective(fov,ratio,nearLimit,farLimit);
+}
 #ifdef DEBUG
 void Camera::debug(){
 	printf("\nposition : %f, %f, %f\n\
