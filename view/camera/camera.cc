@@ -12,7 +12,6 @@ Camera::Camera(float ratio, float* position, float moveSpeed, float rotationSpee
 	this->direction=vec3(direction[0],direction[1],direction[2]);
 	this->moveSpeed=moveSpeed;
 	this->rotationSpeed=rotationSpeed;
-	cachedViewMatrix=glm::mat4();//this is identity matrix
 	projection=perspective(
 			30.0f,//FOV (zoom en degrée)
 			ratio,//depending size of windows 
@@ -60,6 +59,10 @@ void Camera::accelerateLeft(){//idem
 
 float Camera::getRotationSpeed(){
 	return rotationSpeed;
+}
+
+mat4 Camera::getProjection(){
+	return projection;
 }
 
 #ifdef DEBUG

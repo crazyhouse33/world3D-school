@@ -13,13 +13,12 @@
 #include <glm/glm.hpp>
 using namespace glm;
 
-//TODO include le minimum nécéssaire
+//TODO mettre une méthode dirty, si non dirty pas besoin de remetre l'uniforme des matrice à jour (moins de calcul et moin de com C/Gpu)
 class Camera{
 	private:
 		vec3 acceleration;
 		vec3 position;
 		vec3 direction;//normed vector direction	
-		mat4 cachedViewMatrix;//to not recalcule the matrix if we did'not move
 		mat4 projection;//settings of our camera
 		//reste à gérer le model. rien compris à ça, j pense pas que ce soit important
 
@@ -33,11 +32,13 @@ class Camera{
 		void accelerateRight();	
 		void move();//translating camera accordingly to acceleration
 		float getRotationSpeed();	
+
 #ifdef DEBUG
 		void debug();
 #endif
-		//TODO foutre le fait que ça retourne une matrix pour opengl dans une future class openg gl qui prend une direction et un poi en parametre
+		//TODO foutre le fait que ça retourne une matrix pour opengl dans une future class openg gl qui prend une camera en parametre
 		mat4 orient(vec3 direction);//return the matrix for openGl, and save new direction
+		mat4 getProjection();
 };
 
 

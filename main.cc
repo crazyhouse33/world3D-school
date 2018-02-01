@@ -18,7 +18,7 @@ int main(void)
 	//initialisation des objets
 	int height=480;
 	int width=640;
-	float moveSpeed=1.0f;
+	float moveSpeed=0.25f;
 	float rotationSpeed=0.0005f;	
 	float* initialPosition= (float*) malloc(3*sizeof(float));
 	initialPosition[0]=0.0f;
@@ -43,13 +43,19 @@ int main(void)
 
 
 		//render block(to put in renderer class
-		glm::mat4 cameraMatrix = Interface::inputManager->orientCamera();	
-
+		glm::mat4 lookAtMatrix = Interface::inputManager->orientCamera();	
+		glm::mat4 projectionMatrix = camera->getProjection();
 		//shader shit 
 		
-		/*feeding vertex shader whit matrix camera matrix */	
-		GLuint cameraMatrixVramLocation = glGetUniformLocation(shader.getProgramID(), "cameraMatrix");//TODO dans la classe drawer optimiser ça (pointeur vrm fixe)
-		glUniformMatrix4fv(cameraMatrixVramLocation , 1, GL_FALSE, glm::value_ptr(cameraMatrix));
+		/*feeding vertex shader whit projec and look at matrix */	
+		GLuint lookAtMatrixVramLocation = glGetUniformLocation(shader.getProgramID(), "lookAtMatrix");//TODO dans la classe drawer optimiser ça (pointeur vrm fixe)
+		glUniformMatrix4fv(lookAtMatrixVramLocation , 1, GL_FALSE, glm::value_ptr(lookAtMatrix));
+
+		GLuint projectionMatrixVramLocation = glGetUniformLocation(shader.getProgramID(), "projectionMatrix");//TODO dans la classe drawer optimiser ça (pointeur vrm fixe)
+		glUniformMatrix4fv(projectionMatrixVramLocation , 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+
+
+
 		glUseProgram(shader.getProgramID());
 
 		//envoi de data. a foutre en VBO
