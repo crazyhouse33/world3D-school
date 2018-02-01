@@ -42,7 +42,7 @@ class Camera{
 		void orient(vec3 direction);//orient camera
 
 		mat4 getLookAtMatrix();
-		mat4 getProjectionMatrix();
+		mat4 getProjectionMatrix(float ratio);
 
 
 #ifdef DEBUG
