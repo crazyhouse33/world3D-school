@@ -20,8 +20,7 @@ class Camera{
 		vec3 position;
 		vec3 direction;//normed vector direction	
 
-				//cheap optim
-		vec3 cachedCrossProduct;
+		vec3 crossProduct;//represent left/right direction of camera
 		
 		//settings 
 		float fov;
@@ -36,7 +35,8 @@ class Camera{
 		void accelerateBackward();
 		void accelerateRight();	
 		void stop();
-		void resetCrossProduct();
+		void setCrossProduct(vec3 crossProduct);
+		vec3 getCrossProduct();
 		float getRotationSpeed();
 		void move();//translate camera accordingly to acceleration	
 		void orient(vec3 direction);//orient camera

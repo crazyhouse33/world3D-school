@@ -7,7 +7,7 @@
 //to remove 
 
 InputManager::InputManager(Interface* interface, Camera* camera){
-	dirty=true;
+	oldXrotation=vec3(0.0f,0.0f,-1.0f);
 	oldMouseX= 0.0;
 	oldMouseY=0.0;
 
@@ -60,32 +60,30 @@ void InputManager::updateOrientation(){
 	interface->getMousePosition(&xMouseD, &yMouseD);	
 	float xMouse= (float) xMouseD;
 	float yMouse=(float) yMouseD;
-	if (xMouse == oldMouseX && yMouse == oldMouseY){// orientation did not change, dont rotate
+
+	if (xMouse==oldMouseX && yMouse	== oldMouseY){//same situation than last time 
 		return;
 	}
-	if (xMouse!=oldMouseX){
-		dirty=true;
+	vec3 initialDir=vec3(0.0f,0.0f,-1.0f);//TODO put up and right global, use more pointer, initial dir should be linked to the direction entered in the main
+	float speed = camera->getRotationSpeed(); 
+	if (xMouse!=oldMouseX){//moved horizontally
+		vec3 up= vec3(0.0f,1.0f,0.0f);
+		oldXrotation=rotate(initialDir, xMouse*-speed, up);
+		camera->setCrossProduct(cross(up, oldXrotation));
+		//now X rotation and crossProduct are updated
 	}
+	//need to reorient in all cases	
+	
+	camera->orient(rotate(oldXrotation, yMouse*-speed, camera->getCrossProduct()));
 	oldMouseX=xMouse;
 	oldMouseY=yMouse;
-	float speed = camera->getRotationSpeed(); 
-	vec3 initialDir=vec3(0.0f,0.0f,-1.0f);//TODO put up and right global, use more pointer, initial dir should be linked to the direction entered in the main
-	vec3 up= vec3(0.0f,1.0f,0.0f);
-	vec3 right =vec3(1.0f,0.0f,0.0f);
-	initialDir=rotate(initialDir, -xMouse*speed, up);//- because anti clock rotation 
-	initialDir=rotate(initialDir, yMouse*speed, right);
-	camera->orient(initialDir);
-
 #ifdef DEBUG
-	printf("\nMouse Postion info: \n\nX= %f\nY=%f\nSpeed: %f \n",xMouse,yMouse,speed );
+	printf("\n===============================================================\nMouse Postion info: \n\nX= %f\nY=%f\nSpeed: %f \n",xMouse,yMouse,speed );
+	camera->debug();
 #endif
 }
 void InputManager::updateAcceleration(){	
 	camera->stop();
-	if (dirty==true){
-		camera->resetCrossProduct();
-		dirty=false;
-	}
 	if (up){
 		camera->accelerateForward();
 	}
@@ -95,7 +93,7 @@ void InputManager::updateAcceleration(){
 	}
 
 	if (left){
-	 	camera->accelerateLeft();
+		camera->accelerateLeft();
 	}
 	else if(right){
 		camera->accelerateRight();
@@ -110,5 +108,5 @@ void InputManager::update(){
 	updateOrientation();
 	updateAcceleration();
 }
-	
+
 

@@ -40,9 +40,6 @@ int main(void)
 
 	while (!interface->windowShouldClose())
 	{
-#ifdef DEBUG
-		printf("%s\n", "=======================================================");
-#endif
 
 		//update block (to put in Mover class (move all object that havent 0 as acceleration and check collision) 
 

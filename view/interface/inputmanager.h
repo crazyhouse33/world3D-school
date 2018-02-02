@@ -41,10 +41,9 @@ class InputManager{
 		void updateOrientation();
 
 		//cheap optim
+
+		vec3 oldXrotation;
 		float oldMouseX;
 		float  oldMouseY;
-
-		bool dirty;//crossProduct dirty?
-
 		};
 #endif
