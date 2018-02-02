@@ -30,12 +30,17 @@ int main(void)
 
 	Interface* interface= new Interface(width, height);	
 	Camera* camera=new Camera(interface->getRatio(), initialPosition, moveSpeed, rotationSpeed, fov, nearLimit, farLimit);	
-	Interface::inputManager=new InputManager(interface, camera);
 
-	//shaders (a passer dans la classe drawer)
+	//shaders (a passer dans la classe gpu)
 	
 	Shader shader("view/drawer/Shaders/geometry.vert", "view/drawer/Shaders/texture.frag");
 	shader.charger();
+
+	Gpu* gpu=new Gpu();
+	Interface::inputManager=new InputManager(interface, camera, gpu);
+	
+	/*feeding vertex shader whit projecection matrix */	
+	gpu->transferProjection(camera->getProjectionMatrix(interface->getRatio()));
 
 
 	while (!interface->windowShouldClose())
@@ -49,16 +54,7 @@ int main(void)
 
 
 		//render block(to put in renderer class
-		glm::mat4 lookAtMatrix = camera->getLookAtMatrix();	
-		glm::mat4 projectionMatrix = camera->getProjectionMatrix(interface->getRatio());
-		//shader shit 
 		
-		/*feeding vertex shader whit projec and look at matrix */	
-		GLuint lookAtMatrixVramLocation = glGetUniformLocation(shader.getProgramID(), "lookAtMatrix");//TODO dans la classe drawer optimiser ça (pointeur vrm fixe)
-		glUniformMatrix4fv(lookAtMatrixVramLocation , 1, GL_FALSE, glm::value_ptr(lookAtMatrix));
-
-		GLuint projectionMatrixVramLocation = glGetUniformLocation(shader.getProgramID(), "projectionMatrix");//TODO dans la classe drawer optimiser ça (pointeur vrm fixe)
-		glUniformMatrix4fv(projectionMatrixVramLocation , 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 
 

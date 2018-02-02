@@ -6,13 +6,14 @@
 #define INPUTMANAGER
 #include "camera.h"
 #include "interface.h"
+#include "gpu.h"
 #include <glm/glm.hpp> //vec3
 
 class Interface; //forward declaration
 
 class InputManager{
 	public:
-		InputManager(Interface* interface, Camera* camera);
+		InputManager(Interface* interface, Camera* camera, Gpu* gpu);
 		//lazy callbacks
 		void upPress();
 		void upRelease();
@@ -33,12 +34,15 @@ class InputManager{
 	private:	
 		Camera* camera;
 		Interface* interface;
+		//needed to transfer view matrix to gpu 
+		Gpu* gpu;
 		bool right;
 		bool left;
 		bool up;
 		bool down;
-		void updateAcceleration();
-		void updateOrientation();
+		/*return true if acceleration changed since last time*/
+		bool updateAcceleration();
+		bool updateOrientation();
 
 		//cheap optim
 
