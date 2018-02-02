@@ -19,7 +19,7 @@ int main(void)
 	int height=480;
 	int width=640;
 	float moveSpeed=0.05f;
-	float rotationSpeed=0.00005f;	
+	float rotationSpeed=0.0005f;	
 	float* initialPosition= (float*) malloc(3*sizeof(float));
 	initialPosition[0]=0.0f;
 	initialPosition[1]=0.0f;
@@ -45,13 +45,15 @@ int main(void)
 #endif
 
 		//update block (to put in Mover class (move all object that havent 0 as acceleration and check collision) 
-		camera->update();
 
+		camera->move();
+		Interface::inputManager->update();
+		
 
 
 		//render block(to put in renderer class
-		glm::mat4 lookAtMatrix = Interface::inputManager->orientCamera();	
-		glm::mat4 projectionMatrix = camera->getProjection();
+		glm::mat4 lookAtMatrix = camera->getLookAtMatrix();	
+		glm::mat4 projectionMatrix = camera->getProjectionMatrix(interface->getRatio());
 		//shader shit 
 		
 		/*feeding vertex shader whit projec and look at matrix */	

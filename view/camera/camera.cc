@@ -15,7 +15,6 @@ Camera::Camera(float ratio, float* position, float moveSpeed, float rotationSpee
 	this->fov=fov;
 	this->nearLimit=nearLimit;
 	this->farLimit=farLimit;
-	debug();
 }
 
 void Camera::orient(vec3 dir){
@@ -24,6 +23,7 @@ void Camera::orient(vec3 dir){
 
 void Camera::move(){
 	position+=acceleration;
+	debug();
 }
 
 
@@ -38,11 +38,11 @@ void Camera::accelerateBackward(){
 
 
 void Camera::accelerateRight(){// may be bugged if looking at up, also normed? TODO remplacer tous les constructeur int en float	
-	acceleration += moveSpeed * cachedCrossProduct;
+	acceleration -= moveSpeed * cachedCrossProduct;
 }
 
 void Camera::accelerateLeft(){//idem
-	acceleration -= moveSpeed * cachedCrossProduct;
+	acceleration += moveSpeed * cachedCrossProduct;
 }
 
 void Camera::stop(){
@@ -53,7 +53,7 @@ void Camera::stop(){
 
 
 void Camera::resetCrossProduct(){
-	cachedCrossProduct= moveSpeed * cross( vec3(0,1,0), direction);//TODO up global	
+	cachedCrossProduct= cross( vec3(0,1,0), direction);//TODO up global	
 }
 
 float Camera::getRotationSpeed(){
@@ -61,7 +61,7 @@ float Camera::getRotationSpeed(){
 }
 
 mat4 Camera::getLookAtMatrix(){
-	return lookAt();
+	return lookAt(position,position+direction,vec3(0,1,0));
 }
 
 mat4 Camera::getProjectionMatrix(float ratio){
@@ -72,7 +72,7 @@ void Camera::debug(){
 	printf("\nposition : %f, %f, %f\n\
 			acceleration : %f, %f, %f\n\
 			direction : %f, %f, %f\n\
-			norme direction : %f",\
+			norme direction : %f\n",\
 			position[0],position[1],position[2],\
 			acceleration[0], acceleration[1],acceleration[2],\
 			direction[0],direction[1],direction[2],\

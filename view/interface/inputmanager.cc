@@ -7,6 +7,10 @@
 //to remove 
 
 InputManager::InputManager(Interface* interface, Camera* camera){
+	dirty=true;
+	oldMouseX= 0.0;
+	oldMouseY=0.0;
+
 	left=false;
 	right=false;
 	up=false;
@@ -70,6 +74,7 @@ void InputManager::updateOrientation(){
 	vec3 right =vec3(1.0f,0.0f,0.0f);
 	initialDir=rotate(initialDir, -xMouse*speed, up);//- because anti clock rotation 
 	initialDir=rotate(initialDir, yMouse*speed, right);
+	camera->orient(initialDir);
 
 #ifdef DEBUG
 	printf("\nMouse Postion info: \n\nX= %f\nY=%f\nSpeed: %f \n",xMouse,yMouse,speed );
