@@ -31,52 +31,35 @@ int main(void)
 
 	Interface* interface= new Interface(width, height);	
 	Camera* camera=new Camera(interface->getRatio(), initialPosition, moveSpeed, rotationSpeed, fov, nearLimit, farLimit);	
-	Interface::inputManager=new InputManager(interface, camera);
 
-	//shaders (a passer dans la classe drawer)
-	
-	Shader shader("view/drawer/gpu/Shaders/geometry.vert", "view/drawer/gpu/Shaders/texture.frag");
-	shader.charger();
-
+	//TODO le main a un drawer, et pas un gpu
+	Gpu* gpu=new Gpu();
+	//sending settings of camera to GPU once for all (never udapted yet)	
+	gpu->transferProjectionMatrix(camera->getProjectionMatrix(interface->getRatio()));
+	Interface::inputManager=new InputManager(interface, camera, gpu);	
+	gpu->cameraMode();//activating camera mode once for all (never udapted yet)
 
 	while (!interface->windowShouldClose())
 	{
 
-		//update block (to put in Mover class (move all object that havent 0 as acceleration and check collision) 
-
+		//update block (move all moveable accordingly to acceleration) 
 		camera->move();
+
+		//compute users inputs
 		Interface::inputManager->update();
-		
+
+		//TODO  VBO/VAO ?
 
 
-		//render block(to put in renderer class
-		glm::mat4 lookAtMatrix = camera->getLookAtMatrix();	
-		glm::mat4 projectionMatrix = camera->getProjectionMatrix(interface->getRatio());
-		//shader shit 
-		
-		/*feeding vertex shader whit projec and look at matrix */	
-		GLuint lookAtMatrixVramLocation = glGetUniformLocation(shader.getProgramID(), "lookAtMatrix");//TODO dans la classe drawer optimiser ça (pointeur vrm fixe)
-		glUniformMatrix4fv(lookAtMatrixVramLocation , 1, GL_FALSE, glm::value_ptr(lookAtMatrix));
-
-		GLuint projectionMatrixVramLocation = glGetUniformLocation(shader.getProgramID(), "projectionMatrix");//TODO dans la classe drawer optimiser ça (pointeur vrm fixe)
-		glUniformMatrix4fv(projectionMatrixVramLocation , 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-
-
-
-		glUseProgram(shader.getProgramID());
-
-		//envoi de data. a foutre en VBO
-
-				
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
 		/*glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(-interface->getRatio(), interface->getRatio(), -1.f, 1.f, 1.f, -1.f);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		glRotatef((float) glfwGetTime() * 50.f, 0.f, 1.f, 1.f);
-		*/
+		  glLoadIdentity();
+		  glOrtho(-interface->getRatio(), interface->getRatio(), -1.f, 1.f, 1.f, -1.f);
+		  glMatrixMode(GL_MODELVIEW);
+		  glLoadIdentity();
+		  glRotatef((float) glfwGetTime() * 50.f, 0.f, 1.f, 1.f);
+		  */
 		glBegin(GL_TRIANGLES);
 		glColor3f(1.f, 0.f, 0.f);
 		glVertex3f(-0.6f, -0.4f, 0.f);
