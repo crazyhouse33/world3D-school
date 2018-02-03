@@ -87,25 +87,26 @@ bool InputManager::updateOrientation(){
 }
 bool InputManager::updateAcceleration(){	
 	camera->stop();
+	bool accelerationPerimed=false;
 	if (up){
 		camera->accelerateForward();
-		return true;
+		accelerationPerimed=true;
 	}
 
 	else if (down){
 		camera->accelerateBackward();
-		return true;
+		accelerationPerimed=true;
 	}
 
 	if (left){
 		camera->accelerateLeft();
-		return true;
+		accelerationPerimed=true;
 	}
 	else if(right){
 		camera->accelerateRight();
-		return true;
+		accelerationPerimed=true;
 	}
-	return false;
+	return accelerationPerimed;
 }
 
 void InputManager::escapePressed(){
@@ -115,12 +116,12 @@ void InputManager::escapePressed(){
 void InputManager::update(){
 	bool orientationPerimed=updateOrientation();
 	bool translationPerimed=updateAcceleration();
-	
+
 	if (orientationPerimed || translationPerimed){
 		gpu->transferLookAtMatrix(camera->getLookAtMatrix());	
 	}
 
-	
+
 }
 
 
