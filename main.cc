@@ -7,6 +7,7 @@
 #include "interface.h"
 #include "inputmanager.h"
 #include "Shader.h"
+#include "gpu.h"
 
 //to move
 #define GLM_FORCE_RADIANS
@@ -34,7 +35,7 @@ int main(void)
 
 	//shaders (a passer dans la classe drawer)
 	
-	Shader shader("view/drawer/Shaders/geometry.vert", "view/drawer/Shaders/texture.frag");
+	Shader shader("view/drawer/gpu/Shaders/geometry.vert", "view/drawer/gpu/Shaders/texture.frag");
 	shader.charger();
 
 

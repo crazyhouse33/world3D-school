@@ -1,9 +1,4 @@
 #include "camera.h"
-#include <stdio.h>
-#define GLM_FORCE_RADIANS
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/ext.hpp>
-#include "debug.h"
 //TODO configuration file/class for all hard coded things
 
 Camera::Camera(float ratio, float* position, float moveSpeed, float rotationSpeed, float fov, float nearLimit, float farLimit){

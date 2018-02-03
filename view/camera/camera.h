@@ -9,8 +9,11 @@
  * (it intricate 2 differents concept), but it allow to just calculate 
  * the angle once, when we truly need redraw (for futur lazy wait aprroach ) 
  * */
-
+#define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include "debug.h"
+
 using namespace glm;
 
 //TODO mettre une méthode dirty, si non dirty pas besoin de remetre l'uniforme des matrice à jour (moins de calcul et moin de com C/Gpu)
