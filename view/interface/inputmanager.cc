@@ -113,14 +113,14 @@ void InputManager::escapePressed(){
 }
 
 void InputManager::update(){
+	bool orientationPerimed=updateOrientation();
+	bool translationPerimed=updateAcceleration();
+	
+	if (orientationPerimed || translationPerimed){
+		gpu->transferLookAtMatrix(camera->getLookAtMatrix());	
+	}
 
-	if (updateOrientation()){//need to avoid lazy evaluation ||
-		gpu->transferLookAtMatrix(camera->getLookAtMatrix());	
-		updateAcceleration();
-	}
-	else if (updateAcceleration()){
-		gpu->transferLookAtMatrix(camera->getLookAtMatrix());	
-	}
+	
 }
 
 

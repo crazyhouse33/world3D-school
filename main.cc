@@ -34,10 +34,10 @@ int main(void)
 
 	//TODO le main a un drawer, et pas un gpu
 	Gpu* gpu=new Gpu();
-	//sending settings of camera to GPU once for all (never udapted yet)	
-	gpu->transferProjectionMatrix(camera->getProjectionMatrix(interface->getRatio()));
 	Interface::inputManager=new InputManager(interface, camera, gpu);	
 	gpu->cameraMode();//activating camera mode once for all (never udapted yet)
+	//sending settings of camera to GPU once for all (never udapted yet)	
+	gpu->transferProjectionMatrix(camera->getProjectionMatrix(interface->getRatio()));
 
 	while (!interface->windowShouldClose())
 	{
