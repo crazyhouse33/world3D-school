@@ -66,7 +66,7 @@ bool InputManager::updateOrientation(){
 	if (xMouse==oldMouseX && yMouse	== oldMouseY){//same situation than last time 
 		return false;
 	}
-	vec3 initialDir=vec3(0.0f,0.0f,-1.0f);//TODO put up and right global, use more pointer, initial dir should be linked to the direction entered in the main
+	vec3 initialDir=vec3(0.0f,0.0f,-1.0f);//TODO put up global, use more pointer, initial dir should be linked to the direction entered in the main
 	float speed = camera->getRotationSpeed(); 
 	if (xMouse!=oldMouseX){//moved horizontally
 		vec3 up= vec3(0.0f,1.0f,0.0f);
@@ -121,7 +121,6 @@ void InputManager::update(){
 	else if (updateAcceleration()){
 		gpu->transferLookAtMatrix(camera->getLookAtMatrix());	
 	}
-
 }
 
 
