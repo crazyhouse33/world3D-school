@@ -22,7 +22,7 @@ class Camera{
 		vec3 acceleration;
 		vec3 position;
 		vec3 direction;//normed vector direction	
-
+		bool upSideDown;
 		vec3 crossProduct;//represent left/right direction of camera
 		
 		//settings 
@@ -41,6 +41,7 @@ class Camera{
 		void setCrossProduct(vec3 crossProduct);
 		vec3 getCrossProduct();
 		float getRotationSpeed();
+		void setUpsideDown(bool boolean); //the inputhandler tell the camera (to economise a crossProduct)
 		void move();//translate camera accordingly to acceleration	
 		void orient(vec3 direction);//orient camera
 

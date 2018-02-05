@@ -43,6 +43,7 @@ int main(void)
 	{
 
 		//update block (move all moveable accordingly to acceleration) 
+		
 		camera->move();
 
 		//compute users inputs
@@ -68,10 +69,9 @@ int main(void)
 		glColor3f(0.f, 0.f, 1.f);
 		glVertex3f(0.f, 0.6f, 0.f);
 		glEnd();
-		//essential stuff, SwapBuffer replace the ancient drawing whit the new, PollEvent process all event received since last poll event and proced them
 		//TODO we should try to turn this busy wait into a lazy one see http://www.glfw.org/docs/latest/input_guide.html glfwWaitEvent()
 		interface->refreshBuffer();
-		interface->threatEvents();
+		interface->threatEvents();//store input for later computation
 
 
 	}

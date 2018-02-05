@@ -3,6 +3,7 @@
 #include "debug.h"
 #define GLM_FORCE_RADIANS
 #include <glm/gtx/rotate_vector.hpp>//transforming mouse input into angle 
+#include <math.h>/*fmod, pi*/
 
 //to remove 
 
@@ -76,11 +77,19 @@ bool InputManager::updateOrientation(){
 	}
 	//need to reorient in all cases	
 	
-	camera->orient(rotate(oldXrotation, yMouse*-speed, camera->getCrossProduct()));
+	float rotationY =fmodf(yMouse*-speed, 2*M_PI);
+	camera->orient(rotate(oldXrotation, rotationY, camera->getCrossProduct()));
+	//alert camera that it is now upsidown
+	if (rotationY> M_PI_2 || rotationY < - M_PI_2){
+		camera->setUpsideDown(true);
+	}
+	else{
+		camera->setUpsideDown(false);
+	}
 	oldMouseX=xMouse;
 	oldMouseY=yMouse;
 #ifdef DEBUG
-	printf("\n===============================================================\nMouse Postion info: \n\nX= %f\nY=%f\nSpeed: %f \n",xMouse,yMouse,speed );
+	printf("\n===============================================================\nMouse Postion info: \n\nX= %f\nY=%f\nSpeed: %f \nRotationY: %f\n",xMouse,yMouse,speed,rotationY );
 	camera->debug();
 #endif
 	return true;

@@ -10,6 +10,7 @@ Camera::Camera(float ratio, float* position, float moveSpeed, float rotationSpee
 	this->fov=fov;
 	this->nearLimit=nearLimit;
 	this->farLimit=farLimit;
+	upSideDown=false;
 }
 
 void Camera::orient(vec3 dir){
@@ -67,8 +68,17 @@ float Camera::getRotationSpeed(){
 	return rotationSpeed;
 }
 
+void Camera::setUpsideDown(bool boolean){
+	upSideDown=boolean;
+}
+
 mat4 Camera::getLookAtMatrix(){
+	if (upSideDown){
+	return lookAt(position,position+direction,vec3(0,-1,0));
+	}
+	else{
 	return lookAt(position,position+direction,vec3(0,1,0));
+	}
 }
 
 mat4 Camera::getProjectionMatrix(float ratio){
