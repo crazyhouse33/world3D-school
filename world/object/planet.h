@@ -4,7 +4,7 @@
 #include <forward_list>
 class Planet{
 	private:
-		ChainedTriangle** mesh; //the first level of precision
+		Tree triangleTree; //the first level of precision
 		
 		/*basic data used for random generation*/
 		int humidity;
@@ -23,6 +23,6 @@ class Planet{
 		 * */
 
 		double temperatureAtVertex(double* Vertex);
-		double*getCenter();
+		double* getCenter();
 		void moveCenter(double* dxyz);
 }
