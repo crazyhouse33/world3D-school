@@ -1,6 +1,6 @@
 #include "gpu.h"
 using namespace glm;
-Gpu::Gpu(){
+Gpu::Gpu(int maxRanderedTriangles){
 //TODO quand plusieurs shaders, avoir une classe shader manager plutot
 	//loading camera Shader 
 	shader=new Shader("view/drawer/gpu/Shaders/geometry.vert", "view/drawer/gpu/Shaders/texture.frag");
@@ -13,6 +13,22 @@ Gpu::Gpu(){
 		printf("error while loading uniform address");
 		exit(1);
 	}
+
+	//Manage VBO
+	//get Id for the vbo
+	glGenBuffers(1, &vboId);
+	//locking new empty vbo
+	glBindBuffers(GL_ARRAY_BUFFER, vboId);
+
+	int neededSize= maxRanderedTriangles * 3 * sizeof(float);
+	//allocating empty vram
+	glBufferData(GL_BUFFER_DATA, neededSize, 0, GL_STREAM_DRAW);
+
+}
+
+Gpu::~Gpu(){
+	glDeleteBuffers(1,&vboId);
+	delete(shader);
 
 }
 

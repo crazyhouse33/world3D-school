@@ -8,6 +8,7 @@
 #include "inputmanager.h"
 #include "Shader.h"
 #include "gpu.h"
+#include "triangle.h"
 
 //to move
 #define GLM_FORCE_RADIANS
@@ -33,11 +34,22 @@ int main(void)
 	Camera* camera=new Camera(interface->getRatio(), initialPosition, moveSpeed, rotationSpeed, fov, nearLimit, farLimit);	
 
 	//TODO le main a un drawer, et pas un gpu
-	Gpu* gpu=new Gpu();
+	Gpu* gpu=new Gpu(3000);
 	Interface::inputManager=new InputManager(interface, camera, gpu);	
-	gpu->cameraMode();//activating camera mode once for all (never udapted yet)
+	gpu->cameraMode();//activating camera mode (use camera shader) once for all (never udapted yet)
 	//sending settings of camera to GPU once for all (never udapted yet)	
 	gpu->transferProjectionMatrix(camera->getProjectionMatrix(interface->getRatio()));
+
+
+	//creation de data
+	/*float p1= (float*)malloc(sizeof(float)*3);
+	float* p2= (float*)malloc(sizeof(float)*3);
+	float* p3= (float*)malloc(sizeof(float)*3);*/
+	float p1[]={-0.6,-0.4,0.f};
+	float p2[]={0.6f,-0.4f,0.f};	
+	float p3[]={0.f,0.6f,0.f};
+
+	Triangle triangle= Triangle(p1,p2,p3);
 
 	while (!interface->windowShouldClose())
 	{
@@ -61,12 +73,9 @@ int main(void)
 		  glLoadIdentity();
 		  glRotatef((float) glfwGetTime() * 50.f, 0.f, 1.f, 1.f);
 		  */
-		glBegin(GL_TRIANGLES);
-		glColor3f(1.f, 0.f, 0.f);
+		glBegin(GL_LINE_LOOP);
 		glVertex3f(-0.6f, -0.4f, 0.f);
-		glColor3f(0.f, 1.f, 0.f);
 		glVertex3f(0.6f, -0.4f, 0.f);
-		glColor3f(0.f, 0.f, 1.f);
 		glVertex3f(0.f, 0.6f, 0.f);
 		glEnd();
 		//TODO we should try to turn this busy wait into a lazy one see http://www.glfw.org/docs/latest/input_guide.html glfwWaitEvent()
