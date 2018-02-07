@@ -1,7 +1,11 @@
 #ifndef INTERFACE
 #define INTERFACE
-#include <GLFW/glfw3.h>
+
 #include "inputmanager.h"
+#include <GLFW/glfw3.h>
+#include <stdlib.h>//error control
+#include <stdio.h>
+
 class InputManager; //forward declaration
 
 class Interface{

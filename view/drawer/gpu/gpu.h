@@ -1,8 +1,9 @@
 #ifndef GPUGUARD
 #define GPUGUARD
-#include "Shader.h"
-#include "crossopengl.h"
 
+#include <GL/glew.h>
+
+#include "Shader.h"
 #include <glm/glm.hpp>
 
 //to move in shader?
@@ -12,7 +13,7 @@
 
 class Gpu{
 	public:
-		Gpu();//compile camera shader, save Vram adress of constants
+		Gpu();//compile camera shader, save Vram adress of constants, initialise Opengl Extensions
 		/*modify matrix in vram*/
 		void transferLookAtMatrix(glm::mat4 matrix);
 		void transferProjectionMatrix(glm::mat4 matrix);

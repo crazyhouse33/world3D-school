@@ -1,8 +1,7 @@
 #ifndef DEF_SHADER
 #define DEF_SHADER
 
-#include "crossopengl.h"
-
+#include <GL/glew.h>
 
 // Includes communs
 

@@ -1,11 +1,24 @@
 #include "gpu.h"
 using namespace glm;
 Gpu::Gpu(){
-//TODO quand plusieurs shaders, avoir une classe shader manager plutot
-	//loading camera Shader 
+	GLenum code = glewInit();
+	if(code != GLEW_OK)
+
+	{
+
+		fprintf(stderr, "impossible d'initialiser les extensions"
+
+				" avec GLEW : %s\n", glewGetErrorString(code));
+
+		exit(1);//TODO quit application function (call all destructors)
+
+	}
+
+	//TODO quand plusieurs shaders, avoir une classe shader manager plutot
+	//lo camera Shader 
 	shader=new Shader("view/drawer/gpu/Shaders/geometry.vert", "view/drawer/gpu/Shaders/texture.frag");
 	shader->charger(); //compiler le chargeur et le mettre sur la carte
-	
+
 	//recuperation of the matrixs adress
 	lookAtMatrixLocation = glGetUniformLocation(shader->getProgramID(), "lookAtMatrix");
 	projectionMatrixLocation = glGetUniformLocation(shader->getProgramID(), "projectionMatrix");

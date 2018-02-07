@@ -1,8 +1,4 @@
-#include <GLFW/glfw3.h>
 #include "interface.h"
-#include "inputmanager.h"//lib-independent callbacks
-#include <stdlib.h>//error control
-#include <stdio.h>
 
 /**
  * This class contain all thing related to glfw

@@ -3,11 +3,11 @@
 #include <stdio.h>
 
 
+#include "gpu.h" //need to be first (include glew)
 #include "camera.h"
 #include "interface.h"
 #include "inputmanager.h"
 #include "Shader.h"
-#include "gpu.h"
 
 //to move
 #define GLM_FORCE_RADIANS
