@@ -18,13 +18,13 @@ Gpu::Gpu(int maxRanderedTriangles){
 
 	//Manage VBO
 	//get Id for the vbo
-	/*glGenBuffers(1, &vboId);
+	glGenBuffers(1, &vboId);
 	//locking new empty vbo
-	glBindBuffers(GL_ARRAY_BUFFER, vboId);
+	glBindBuffer(GL_ARRAY_BUFFER, vboId);
 
 	int neededSize= maxRanderedTriangles * 3 * sizeof(float);
 	//allocating empty vram
-	glBufferData(GL_BUFFER_DATA, neededSize, 0, GL_STREAM_DRAW);*/
+	glBufferData(GL_ARRAY_BUFFER, neededSize, 0, GL_STREAM_DRAW);
 
 }
 
