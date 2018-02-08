@@ -3,11 +3,11 @@
 #include <stdio.h>
 
 
+#include "interface.h"//need to be first (include glew)
+#include "gpu.h" 
 #include "camera.h"
-#include "interface.h"
 #include "inputmanager.h"
 #include "Shader.h"
-#include "gpu.h"
 #include "triangle.h"
 
 //to move

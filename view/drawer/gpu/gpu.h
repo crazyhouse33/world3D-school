@@ -1,10 +1,10 @@
 #ifndef GPUGUARD
 #define GPUGUARD
-#include "Shader.h"
-#include "crossopengl.h"
 
+#include "Shader.h"
 #include <glm/glm.hpp>
-//to move in shader?
+
+//to move in shader
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/type_ptr.hpp> //cross plateform cast matrix to gpu
 
@@ -20,8 +20,9 @@ class Gpu{
 		/*modify matrix in vram*/
 		void transferLookAtMatrix(glm::mat4 matrix);
 		void transferProjectionMatrix(glm::mat4 matrix);
-
 		void cameraMode();//use camera Shaders
+		void render(int n );//render n first triangles in VBO
+
 	private:
 		Shader* shader;
 		GLuint lookAtMatrixLocation;//TODO pass it in the camera shader
@@ -29,7 +30,7 @@ class Gpu{
 
 		GLuint vboId;
 		GLuint vboLocation;
-		float* bucket; 
+		float* bucket;//mapped VBO memory, will be used as a bucket by cpu; 
 
 };
 #endif

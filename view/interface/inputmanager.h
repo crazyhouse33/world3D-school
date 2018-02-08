@@ -6,9 +6,10 @@
  * */
 #ifndef INPUTMANAGER
 #define INPUTMANAGER
+
+#include "gpu.h"
 #include "camera.h"
 #include "interface.h"
-#include "gpu.h"
 #include <glm/glm.hpp> //vec3
 
 class Interface; //forward declaration

@@ -1,8 +1,4 @@
-#include <GLFW/glfw3.h>
 #include "interface.h"
-#include "inputmanager.h"//lib-independent callbacks
-#include <stdlib.h>//error control
-#include <stdio.h>
 
 /**
  * This class contain all thing related to glfw
@@ -87,6 +83,17 @@ Interface::Interface(int width, int height){
 
 	//focus on this window
 	glfwMakeContextCurrent(window);
+	GLenum code=glewInit(); 
+	if(code != GLEW_OK)
+	{
+
+		fprintf(stderr, "impossible d'initialiser les extensions"
+
+				" avec GLEW : %s\n", glewGetErrorString(code));
+
+		windowShouldClose();
+	}
+
 	//setting cursor to 0,0 (need to be after focusing window)
 	glfwSetCursorPos(window,0.0, 0.0);
 

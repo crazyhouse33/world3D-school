@@ -14,6 +14,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "debug.h"
 
+#define REVERSED -1
+#define NORMAL 1
+
 using namespace glm;
 
 //TODO mettre une méthode dirty, si non dirty pas besoin de remetre l'uniforme des matrice à jour (moins de calcul et moin de com C/Gpu)
@@ -22,7 +25,7 @@ class Camera{
 		vec3 acceleration;
 		vec3 position;
 		vec3 direction;//normed vector direction	
-		bool upSideDown;
+		int state;//revesed or not 
 		vec3 crossProduct;//represent left/right direction of camera
 		
 		//settings 
@@ -41,7 +44,8 @@ class Camera{
 		void setCrossProduct(vec3 crossProduct);
 		vec3 getCrossProduct();
 		float getRotationSpeed();
-		void setUpsideDown(bool boolean); //the inputhandler tell the camera (to economise a crossProduct)
+		void setState(int state); //the inputhandler tell the camera (to economise a crossProduct)
+		int getState();//input Handler need to know to inverse rotation effec
 		void move();//translate camera accordingly to acceleration	
 		void orient(vec3 direction);//orient camera
 
@@ -53,6 +57,5 @@ class Camera{
 		void debug();
 #endif
 		};
-
 
 #endif
