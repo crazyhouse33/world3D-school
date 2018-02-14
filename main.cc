@@ -51,6 +51,7 @@ int main(void)
 
 	Triangle triangle= Triangle(p1,p2,p3);
 
+	glViewport(0, 0, width, height);
 	while (!interface->windowShouldClose())
 	{
 
@@ -61,12 +62,8 @@ int main(void)
 		//compute users inputs
 		Interface::inputManager->update();
 
-		//TODO  VBO/VAO ?
 
-
-		glViewport(0, 0, width, height);
-		glClear(GL_COLOR_BUFFER_BIT);
-		/*glMatrixMode(GL_PROJECTION);
+				/*glMatrixMode(GL_PROJECTION);
 		  glLoadIdentity();
 		  glOrtho(-interface->getRatio(), interface->getRatio(), -1.f, 1.f, 1.f, -1.f);
 		  glMatrixMode(GL_MODELVIEW);
@@ -87,6 +84,7 @@ int main(void)
 	interface->quit();
 	delete(interface);
 	delete(camera);
+	delete(gpu);
 	exit(EXIT_SUCCESS);
 }
 

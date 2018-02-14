@@ -71,7 +71,7 @@ bool InputManager::updateOrientation(){
 	float speed = camera->getRotationSpeed(); 
 	if (xMouse!=oldMouseX){//moved horizontally
 		vec3 up= vec3(0.0f,1.0f,0.0f);
-		oldXrotation=rotate(initialDir, camera->getState() * xMouse * -speed, up);//when upside down, need to inverse X control
+		oldXrotation=rotate(initialDir, xMouse * -speed, up);
 		camera->setCrossProduct(cross(up, oldXrotation));
 		//now X rotation and crossProduct are updated
 	}

@@ -7,7 +7,11 @@
  * */
 class Drawer{	
 	public:
+		Drawer(Gpu* gpu);
 		void draw(Triangle triangle); 
+
+	private:
+		Gpu* gpu;
 }
 #endif
 
