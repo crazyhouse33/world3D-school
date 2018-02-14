@@ -1,28 +1,17 @@
 #ifndef PLANET
 #define PLANET
-#include "chainedTriangle.h"
-#include <forward_list>
-class Planet{
-	private:
-		Tree triangleTree; //the first level of precision
+#include "planettree.h"
+class Planet : PlanetTree{//extending for pratical purpose ( way lighter syntax)
 		
-		/*basic data used for random generation*/
-		int humidity;
-		double temperatureAtEcuador;
-		double* center; //(x, y, z)
-		/*for now we use fixed temp at ecuador, if we got enought
-		time we will generate smalls suns systems where temperature
-		is more realisticlely regulated 
-		Planet** suns;
-		*/
-	
 	public:
-		/*
-		 * Function returning the actual temperature of the planet 
-		 * on a given point
-		 * */
 
-		double temperatureAtVertex(double* Vertex);
-		double* getCenter();
-		void moveCenter(double* dxyz);
+
+		Planet(int depth,float* center, float radius, int sphericalAspect, int uniformity, int variationStrenght ) : PlanetTree(depth, radius, sphericalAspect, uniformity, variationStrenght);
+		float* getCenter();
+		void moveCenter(double* deltaXYZ);
+
+	private:
+
+		float* center; //(x, y, z)
 }
+#endif

@@ -5,11 +5,14 @@
  * The cost is that it doesnt abstract all the logic for user class
  * Also, it's not a normal ternary tree since we have 4 roots. 
  */
+#ifndef TRIANGLETREE
+#define TRIANGLETREE
+#include "triangle.h"
 class PlanetTree{
 
 	public:
 
-		PlanetTree(int depth);
+		PlanetTree(int depth, float radius, int sphericalAspect, int uniformity, int variationStrenght );//TODO add 9(max) planet float input
 		//TODO unsigned int?
 		int getFirstSonIndex(int i);
 		int getSecondSonIndex(int i);
@@ -17,7 +20,13 @@ class PlanetTree{
 
 		int getLeft(int i);
 		int getRight(int i);
-		//int getAncestor(int i, int generation);
+
+
+		//int getAncestor(int i, int generation);//easy, may be needed one day
+
+		inline Triangle* operator[](int i){
+			return &array[i];
+		}
 
 	
 //todo [] operator 		
@@ -25,4 +34,5 @@ class PlanetTree{
 	       	Triangle* array;
 
 
-}
+};
+#endif

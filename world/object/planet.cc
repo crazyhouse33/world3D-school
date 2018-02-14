@@ -19,9 +19,8 @@
  * */
 
 //TODO ajouter parametre sphericite puis interpoler phase 2 et 3 selon la valeur de ce truc?
-Planet::Planet(double temperatureAtEcuador, int humidity, double* center, double meanRadius, int dephtOfTree){
-	this.humidity=humidity;
-	this.temperatureAtEcuador=temperatureAtEcuador;
+Planet::Planet(int depth, float* center, float radius, int sphericalAspect, int uniformity, int variationStrenght ){//TODO add 9(max) planet float input
 	this.center=center;
-}
+	}
+
 
