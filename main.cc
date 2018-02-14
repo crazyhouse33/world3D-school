@@ -7,8 +7,8 @@
 #include "gpu.h" 
 #include "camera.h"
 #include "inputmanager.h"
-#include "Shader.h"
 #include "triangle.h"
+#include "drawer.h"
 
 //to move
 #define GLM_FORCE_RADIANS
@@ -40,8 +40,10 @@ int main(void)
 	//sending settings of camera to GPU once for all (never udapted yet)	
 	gpu->transferProjectionMatrix(camera->getProjectionMatrix(interface->getRatio()));
 
+	Drawer* drawer= new Drawer(gpu);
 
-	//creation de data
+
+	//creation de data (expériences)
 	/*float p1= (float*)malloc(sizeof(float)*3);
 	float* p2= (float*)malloc(sizeof(float)*3);
 	float* p3= (float*)malloc(sizeof(float)*3);*/
@@ -61,20 +63,14 @@ int main(void)
 
 		//compute users inputs
 		Interface::inputManager->update();
-
-
-				/*glMatrixMode(GL_PROJECTION);
-		  glLoadIdentity();
-		  glOrtho(-interface->getRatio(), interface->getRatio(), -1.f, 1.f, 1.f, -1.f);
-		  glMatrixMode(GL_MODELVIEW);
-		  glLoadIdentity();
-		  glRotatef((float) glfwGetTime() * 50.f, 0.f, 1.f, 1.f);
-		  */
-		glBegin(GL_LINE_LOOP);
+	
+		/*glBegin(GL_LINE_LOOP);
 		glVertex3f(-0.6f, -0.4f, 0.f);
 		glVertex3f(0.6f, -0.4f, 0.f);
 		glVertex3f(0.f, 0.6f, 0.f);
-		glEnd();
+		glEnd();*/
+
+		drawer->draw(triangle);
 		//TODO we should try to turn this busy wait into a lazy one see http://www.glfw.org/docs/latest/input_guide.html glfwWaitEvent()
 		interface->refreshBuffer();
 		interface->threatEvents();//store input for later computation

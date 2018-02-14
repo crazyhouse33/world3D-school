@@ -4,9 +4,9 @@ class Triangle{
 	//public for pratical purpose
 	public:
 		Triangle(float* v1, float* v2, float* v3);
-		float* vertex1;
-		float* vertex2;
-		float* vertex3;
+		float* v1;
+		float* v2;
+		float* v3;
 		/**
 		 * Function used to create 3 triangles from a triangle and a "break"
 		 * point: imagine a triangle. Trace a line between the 3 allready 
