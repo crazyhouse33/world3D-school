@@ -16,6 +16,13 @@ Gpu::Gpu(int maxRanderedTriangles){
 		exit(1);
 	}
 
+//Activate default mode (camera+depht test)
+
+	cameraMode();
+	glEnable(GL_DEPTH_TEST);
+
+
+
 	//Manage VBO
 	//get Id for the vbo
 	glGenBuffers(1, &vboId);

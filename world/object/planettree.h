@@ -24,12 +24,15 @@ class PlanetTree{
 
 		//int getAncestor(int i, int generation);//easy, may be needed one day
 
-		inline Triangle* operator[](int i){
-			return &array[i];
-		}
 
+
+		//bracket overload TODO getter for no
+		
+		Triangle* getTriangle(int i){
+			return array+i;
+		}
+			
 	
-//todo [] operator 		
 	private:
 	       	Triangle* array;
 

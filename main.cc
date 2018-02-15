@@ -9,6 +9,7 @@
 #include "inputmanager.h"
 #include "triangle.h"
 #include "drawer.h"
+#include "planet.h"
 
 //to move
 #define GLM_FORCE_RADIANS
@@ -36,42 +37,36 @@ int main(void)
 	//TODO le main a un drawer, et pas un gpu
 	Gpu* gpu=new Gpu(3000);
 	Interface::inputManager=new InputManager(interface, camera, gpu);	
-	gpu->cameraMode();//activating camera mode (use camera shader) once for all (never udapted yet)
 	//sending settings of camera to GPU once for all (never udapted yet)	
 	gpu->transferProjectionMatrix(camera->getProjectionMatrix(interface->getRatio()));
 
 	Drawer* drawer= new Drawer(gpu);
 
 
-	//creation de data (expériences)
-	/*float p1= (float*)malloc(sizeof(float)*3);
-	float* p2= (float*)malloc(sizeof(float)*3);
-	float* p3= (float*)malloc(sizeof(float)*3);*/
-	float p1[]={-0.6,-0.4,0.f};
-	float p2[]={0.6f,-0.4f,0.f};	
-	float p3[]={0.f,0.6f,0.f};
+	//creation de data
+	float* center= (float*)malloc(sizeof(float)*3);
+	center[0]=0.0;
+	center[1]=0.0;
+	center[2]=0.0;
+	float radius=1;
+	Planet* planet=new Planet(10, center, radius, 1.0,1.0,1.0);
 
-	Triangle triangle= Triangle(p1,p2,p3);
-
+	//TODO le foutre ailleur
 	glViewport(0, 0, width, height);
+
 	while (!interface->windowShouldClose())
 	{
 
-		//update block (move all moveable accordingly to acceleration) 
+		//update world (move all moveable accordingly to acceleration) 
 		
 		camera->move();
 
 		//compute users inputs
 		Interface::inputManager->update();
-	
-		/*glBegin(GL_LINE_LOOP);
-		glVertex3f(-0.6f, -0.4f, 0.f);
-		glVertex3f(0.6f, -0.4f, 0.f);
-		glVertex3f(0.f, 0.6f, 0.f);
-		glEnd();*/
-
-		drawer->draw(triangle);
-		//TODO we should try to turn this busy wait into a lazy one see http://www.glfw.org/docs/latest/input_guide.html glfwWaitEvent()
+		
+		//draw
+		drawer->draw(planet);
+		//TODO we should try to turn this busy wait into a lazy one see http://www.glfw.org/docs/latest/input_guide.html glfwWaitEvent() ( or just sleep)
 		interface->refreshBuffer();
 		interface->threatEvents();//store input for later computation
 
@@ -81,6 +76,7 @@ int main(void)
 	delete(interface);
 	delete(camera);
 	delete(gpu);
+	delete(drawer);
 	exit(EXIT_SUCCESS);
 }
 

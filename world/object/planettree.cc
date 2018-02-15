@@ -41,7 +41,7 @@ PlanetTree::PlanetTree(int depth, float radius, int sphericalAspect, int uniform
 
 }
 
-/*TODO inline it, try stange things (<< + n)*/
+/*TODO inline it, try stange things (<< + n)* ++ an shit*/
 int PlanetTree::getFirstSonIndex(int i){
 	return 3*i +2; 
 }
@@ -52,4 +52,12 @@ int PlanetTree::getSecondSonIndex(int i){
 
 int PlanetTree::getThirdSonIndex(int i){
 	return 3*i +4;
+}
+
+int PlanetTree::getLeft(int i){
+	return i-1;
+}
+
+int PlanetTree::getRight(int i){
+return i+1;
 }
