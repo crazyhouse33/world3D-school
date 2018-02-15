@@ -19,7 +19,7 @@ Gpu::Gpu(int maxRanderedTriangles){
 //Activate default mode (camera+depht test)
 
 	cameraMode();
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST); use it?
 
 
 

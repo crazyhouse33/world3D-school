@@ -119,8 +119,9 @@ float Interface::getRatio(){
 
 void Interface::refreshBuffer(){
 	glfwSwapBuffers(window);
-//clear last scrren buffer 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) ;
+	//clear last scrren buffer 
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) ; in case z buffer used
+	glClear(GL_COLOR_BUFFER_BIT);
 
 
 }

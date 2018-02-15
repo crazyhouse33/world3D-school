@@ -15,19 +15,20 @@ PlanetTree::PlanetTree(int depth, float radius, int sphericalAspect, int uniform
 	//need to know radius of the sphere at radius/2	
 	//TODO precalculate sqrt value and hardcode it
 	float subRadius=sqrt(0.75)*radius;
+	float subSubRadius=sqrt(0.75)*subRadius;
 
 	float* frontBasePoint= (float*) malloc( sizeof(float)*3);
 	frontBasePoint[0]=0.0;
 	frontBasePoint[1]= -radius/2;
-	frontBasePoint[2]= -subRadius/2;
+	frontBasePoint[2]= -subRadius;
 
 	float* leftBasePoint= (float*) malloc( sizeof(float)*3);
-	leftBasePoint[0]=-subRadius;
+	leftBasePoint[0]=-subSubRadius;
 	leftBasePoint[1]= -radius/2;
 	leftBasePoint[2]= subRadius/2;
 
 	float* rightBasePoint= (float*) malloc( sizeof(float)*3);
-	rightBasePoint[0]=subRadius;
+	rightBasePoint[0]=subSubRadius;
 	rightBasePoint[1]= -radius/2;
 	rightBasePoint[2]= subRadius/2;
 
