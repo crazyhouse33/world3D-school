@@ -9,8 +9,8 @@
 
 InputManager::InputManager(Interface* interface, Camera* camera, Gpu* gpu){
 	oldXrotation=vec3(0.0f,0.0f,-1.0f);
-	oldMouseX= 0.0;
-	oldMouseY=0.0;
+	oldMouseX= -1;
+	oldMouseY=-1;
 
 	left=false;
 	right=false;

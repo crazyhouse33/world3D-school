@@ -18,8 +18,6 @@ class PlanetTree{
 		int getSecondSonIndex(int i);
 		int getThirdSonIndex(int i);
 
-		int getLeft(int i);
-		int getRight(int i);
 
 
 		//int getAncestor(int i, int generation);//easy, may be needed one day

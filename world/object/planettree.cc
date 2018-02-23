@@ -1,8 +1,13 @@
 #include "planettree.h"
 #include <stdlib.h>//malloc 
 #include <math.h>//pow
+#include<forward_list> //build recursion
+#include <stdio.h>//TODO remove
 PlanetTree::PlanetTree(int depth, float radius, int sphericalAspect, int uniformity, int variationStrenght ){//TODO add 9(max) planet float input
-	array= (Triangle*) malloc(4*pow(3,depth)*sizeof(Triangle));
+	int nbTriangle=(4* (pow(3,depth)+1));
+	array= (Triangle*) malloc((nbTriangle+1)*sizeof(Triangle));//+1 because first triangle not used
+	
+	printf("%d\n", nbTriangle);
 
 	//constructing roots triangles (tetraedra) 
 	
@@ -32,15 +37,29 @@ PlanetTree::PlanetTree(int depth, float radius, int sphericalAspect, int uniform
 	rightBasePoint[1]= -radius/2;
 	rightBasePoint[2]= subRadius/2;
 
+	//preparing the building recursion 
+ 
 	array[1]=Triangle(hightPoint, leftBasePoint, rightBasePoint);
 	array[2]=Triangle(hightPoint,frontBasePoint, leftBasePoint);
-	//may need revert 
 	array[3]=Triangle(hightPoint, frontBasePoint, rightBasePoint);
-
 	array[4]=Triangle(leftBasePoint,frontBasePoint,rightBasePoint);
 	
+	int recLimit= 4*pow(3, depth-1)+1;// last triangle of second last stage of tree
+	for (int iterator=1; iterator< recLimit; iterator++){
+		Triangle* current = getTriangle(iterator);
+		float* crackPoint= current->crack(radius);
+
+		array[getFirstSonIndex(iterator)]= Triangle(current->v1, current->v2,crackPoint);
+		array[getSecondSonIndex(iterator)]= Triangle(current->v1, current->v3,crackPoint);	
+		array[getThirdSonIndex(iterator)]= Triangle(current->v2, current->v3,crackPoint);
+	}	
+	
+
+
 
 }
+
+
 
 /*TODO inline it, try stange things (<< + n)* ++ an shit*/
 int PlanetTree::getFirstSonIndex(int i){
@@ -55,10 +74,4 @@ int PlanetTree::getThirdSonIndex(int i){
 	return 3*i +4;
 }
 
-int PlanetTree::getLeft(int i){
-	return i-1;
-}
 
-int PlanetTree::getRight(int i){
-return i+1;
-}

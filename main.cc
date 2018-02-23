@@ -49,7 +49,7 @@ int main(void)
 	center[1]=0.0;
 	center[2]=0.0;
 	float radius=1;
-	Planet* planet=new Planet(10, center, radius, 1.0,1.0,1.0);
+	Planet* planet=new Planet(1, center, radius, 1.0,1.0,1.0);
 
 	//TODO le foutre ailleur
 	glViewport(0, 0, width, height);
@@ -57,13 +57,14 @@ int main(void)
 	while (!interface->windowShouldClose())
 	{
 
-		//update world (move all moveable accordingly to acceleration) 
-		
-		camera->move();
-
 		//compute users inputs
 		Interface::inputManager->update();
-		
+
+
+		//update world (move all moveable accordingly to acceleration) 
+		camera->move();
+
+				
 		//draw
 		drawer->draw(planet);
 		//TODO we should try to turn this busy wait into a lazy one see http://www.glfw.org/docs/latest/input_guide.html glfwWaitEvent() ( or just sleep)

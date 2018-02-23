@@ -7,13 +7,10 @@ class Triangle{
 		float* v1;
 		float* v2;
 		float* v3;
+
 		/**
-		 * Function used to create 3 triangles from a triangle and a "break"
-		 * point: imagine a triangle. Trace a line between the 3 allready 
-		 * existings vertex and the so called "break" point to obtain 3 
-		 * new triangles. That's what this function do
-		 * */
-		Triangle** crack(double* vertex);
+		 * Function used to create 3 triangles from a triangle, take the midle of the triangle and return it normalized accordingly to distance */
+		float* crack(float dist);
 	private:
 };
 #endif
