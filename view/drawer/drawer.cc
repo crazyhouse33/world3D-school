@@ -45,16 +45,18 @@ while (!currentIteratorMap->empty()){
 	currentIteratorMap->pop_front();
 	for (i=from ; i<=to ; i++){
 		Triangle* current = planet->getTriangle(i);
-		if (needDraw(triangle) != phase){
+		bool needToGoFurther= needDraw(triangle);
+		if (needToGoFurther!= phase){
 			nextIteratorMap->push_front(planet->getFirstSon(i));
 			phase=!phase;
 		}	
-			
-
+		if (needToGoFurther==false){
+			draw(triangle);
+		}	
 	}
 }
-
-
+swap(currentIteratorMap, nextIteratorMap);
+//todo depend distance
 bool Drawer::needDraw(Triangle* triangle){
 	return true;
 }
