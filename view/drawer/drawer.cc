@@ -28,9 +28,34 @@ void Drawer::draw(Triangle* triangle){//TODO use VBO thanks to gpu class
 }
 
 void Drawer::draw(Planet* planet){//TODO true recursion, CHANGE MODEL VIEW ACCORDING TO CENTER
-for (int i=5 ; i<17;i++){
-	draw(planet->getTriangle(i));
+	for (int i=5 ; i<17;i++){
+		draw(planet->getTriangle(i));
+	}
 }
-	
 
+
+void Drawer::draw(Planet* planet, Camera* camera){//TODO true recursion, CHANGE MODEL VIEW ACCORDING TO CENTER
+currentIteratorMap->push_front(1);
+currentIteratorMap->push_front(4);
+bool phase=true;
+while (!currentIteratorMap->empty()){
+	int from= currentIteratorMap->front();
+	currentIteratorMap->pop_front();
+	int to = currentIteratorMap->front();
+	currentIteratorMap->pop_front();
+	for (i=from ; i<=to ; i++){
+		Triangle* current = planet->getTriangle(i);
+		if (needDraw(triangle) != phase){
+			nextIteratorMap->push_front(planet->getFirstSon(i));
+			phase=!phase;
+		}	
+			
+
+	}
 }
+
+
+bool Drawer::needDraw(Triangle* triangle){
+	return true;
+}
+
