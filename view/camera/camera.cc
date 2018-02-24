@@ -83,6 +83,10 @@ mat4 Camera::getLookAtMatrix(){
 mat4 Camera::getProjectionMatrix(float ratio){
 	return perspective(fov,ratio,nearLimit,farLimit);
 }
+
+float Camera::visiblityScore(Triangle* triangle){
+	return 1.0;
+}
 #ifdef DEBUG
 void Camera::debug(){
 	printf("\nposition : %f, %f, %f\nacceleration : %f, %f, %f\ndirection : %f, %f, %f\nCrossProduct: %f %f %f \nnorme direction : %f\n",\

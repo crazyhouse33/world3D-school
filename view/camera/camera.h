@@ -12,6 +12,7 @@
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "triangle.h"
 #include "debug.h"
 
 #define REVERSED -1
@@ -52,7 +53,7 @@ class Camera{
 		mat4 getLookAtMatrix();
 		mat4 getProjectionMatrix(float ratio);
 
-
+		float visiblityScore(Triangle);//culling here
 #ifdef DEBUG
 		void debug();
 #endif
