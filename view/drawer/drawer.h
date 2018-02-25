@@ -12,17 +12,15 @@
 class Drawer{	
 	public:
 		Drawer(Gpu* gpu);
-		void draw(Triangle triangle); 
-		void draw(Triangle* triangle); 
-		void draw(Triangle* triangle, Camera* camera);
-
-		void draw(Planet* planet);
+		void draw(Planet* planet, Camera* camera, float maxDistance);
 
 	private:
 		Gpu* gpu;
+		void draw(Triangle* triangle); 
+
+		bool Drawer::needDraw(Triangle* triangle,Camera* camera, float maxDistance);
 		forward_list<int>* currentIteratorMap; 
-		forward_list<int>* nextIteratorMap; 
-		bool needDraw(Triangle* triangle);
+		forward_list<int>* nextIteratorMap; 		
 };
 #endif
 
